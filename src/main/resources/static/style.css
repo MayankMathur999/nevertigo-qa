@@ -1,0 +1,23 @@
+.confirmation-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.confirmation-actions button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.confirm-yes {
+  background: #52f2a5;
+  color: #06111f;
+}
+
+.confirm-no {
+  background: #ff718b;
+  color: #06111f;
+}

@@ -1,0 +1,23 @@
+1. visits - counts total visits in a date range. Params: start, end (dates, format YYYY-MM-DD).
+2. patients_with_visit - counts distinct patients seen in a date range. Params: start, end.
+3. new_patients - counts newly registered patients in a date range. Params: start, end.
+4. followup_patients - counts patients with more than one visit. Params: start, end.
+5. bppv_patients - counts confirmed BPPV patients. Params: start, end.
+6. bppv_percentage - percentage of patients with confirmed BPPV. Params: start, end.
+7. net_neuro_revenue - total test billing revenue. Params: start, end.
+8. revenue_by_scheme - revenue split by CGHS vs cash. Params: start, end.
+9. revenue_by_staff - revenue split by handler and technician. Params: start, end.
+10. analysis_amount - total analysis billing revenue. Params: start, end.
+11. dva_report_received - count of patients whose DVA report was received. Params: start, end.
+12. medicine_line - count of medicine lines prescribed. Params: start, end.
+13. low_spv_no_torsion_visits - visits with low SPV and no torsion. Params: start, end.
+14. mumbai_dva_versions - lists DVA machine versions installed in Mumbai clinic. No params needed.
+15. omar_may_details - returns Omar Shaikh's diagnosis on 22 May and the attached doctor. No params needed.
+
+clinic_count - Count of integrated Vertigo clinics. No date required. Endpoint: /metrics/clinic-count
+
+visits_by_clinic - Number of patient visits for each clinic between a start and end date. Endpoint: /metrics/visits-by-clinic
+
+revenue_by_clinic - Net Neuro revenue for each clinic between a start and end date. Endpoint: /metrics/revenue-by-clinic
+
+revenue_by_service - Net Neuro revenue grouped by service/test between a start and end date. Endpoint: /metrics/revenue-by-service

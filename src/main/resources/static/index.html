@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NeuroEquilibrium | Sales Intelligence Portal</title>
+
+<style>
+
+:root{
+  --bg:#06111f;
+  --bg2:#091a2d;
+  --card:rgba(12,28,48,.72);
+  --line:rgba(116,220,255,.16);
+  --cyan:#5ee7ff;
+  --cyan2:#1fb8ff;
+  --green:#52f2a5;
+  --text:#edfaff;
+  --muted:#8ba8ba;
+  --danger:#ff718b;
+  --shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(31,184,255,.10),transparent 30%),
+    radial-gradient(circle at 80% 20%,rgba(82,242,165,.07),transparent 25%),
+    linear-gradient(180deg,var(--bg),#040b14);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+#networkCanvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-3;
+  opacity:.35;
+}
+
+.ambient{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(80px);
+  pointer-events:none;
+  z-index:-2;
+}
+
+.ambient.one{
+  width:300px;
+  height:300px;
+  background:rgba(31,184,255,.12);
+  top:10%;
+  left:-100px;
+}
+
+.ambient.two{
+  width:260px;
+  height:260px;
+  background:rgba(82,242,165,.08);
+  right:-80px;
+  top:50%;
+}
+
+.scanline{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:10;
+  background:linear-gradient(
+    transparent 50%,
+    rgba(255,255,255,.012) 50%
+  );
+  background-size:100% 4px;
+}
+
+/* HEADER */
+
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6%;
+  background:rgba(4,13,24,.78);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+  z-index:100;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.logo-mark{
+  width:34px;
+  height:34px;
+  border:1px solid var(--cyan);
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--cyan);
+  box-shadow:
+    0 0 20px rgba(94,231,255,.22),
+    inset 0 0 15px rgba(94,231,255,.08);
+}
+
+nav{
+  display:flex;
+  gap:28px;
+}
+
+nav a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:13px;
+  transition:.25s;
+}
+
+nav a:hover{
+  color:var(--cyan);
+}
+
+/* GENERAL */
+
+main{
+  padding-top:76px;
+}
+
+section{
+  width:min(1200px,90%);
+  margin:auto;
+  padding:90px 0;
+}
+
+.eyebrow{
+  color:var(--cyan);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:2.5px;
+}
+
+.glass{
+  background:linear-gradient(
+    145deg,
+    rgba(15,36,59,.82),
+    rgba(7,20,35,.72)
+  );
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(16px);
+}
+
+/* HERO */
+
+.hero{
+  min-height:calc(100vh - 76px);
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  align-items:center;
+  gap:60px;
+  padding-top:70px;
+  padding-bottom:70px;
+}
+
+.hero-copy{
+  position:relative;
+}
+
+.hero-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 13px;
+  border:1px solid rgba(94,231,255,.22);
+  border-radius:30px;
+  color:var(--cyan);
+  font-size:11px;
+  letter-spacing:1.8px;
+  font-weight:800;
+  background:rgba(94,231,255,.04);
+}
+
+.status-dot{
+  width:7px;
+  height:7px;
+  background:var(--green);
+  border-radius:50%;
+  box-shadow:0 0 12px var(--green);
+}
+
+.hero h1{
+  font-size:clamp(48px,7vw,86px);
+  line-height:.98;
+  letter-spacing:-4px;
+  margin:25px 0;
+}
+
+.hero h1 span{
+  color:var(--cyan);
+  text-shadow:0 0 30px rgba(94,231,255,.22);
+}
+
+.hero-sub{
+  max-width:650px;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.8;
+}
+
+/* ASK BOX */
+
+.ask-box{
+  margin-top:35px;
+  padding:8px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  border:1px solid rgba(94,231,255,.25);
+  background:rgba(5,16,29,.8);
+  box-shadow:
+    0 0 35px rgba(31,184,255,.08),
+    inset 0 0 25px rgba(31,184,255,.025);
+}
+
+.ask-icon{
+  padding:0 15px;
+  color:var(--cyan);
+  font-size:18px;
+}
+
+.ask-box input{
+  flex:1;
+  background:none;
+  border:none;
+  outline:none;
+  color:white;
+  font-size:14px;
+  padding:16px 4px;
+}
+
+.ask-box input::placeholder{
+  color:#668093;
+}
+
+.ask-box button{
+  border:none;
+  border-radius:12px;
+  padding:13px 20px;
+  background:linear-gradient(135deg,var(--cyan2),#1784ff);
+  color:#03111d;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.ask-box button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 0 22px rgba(31,184,255,.28);
+}
+
+.quick-questions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+
+.quick-questions button{
+  background:rgba(94,231,255,.035);
+  border:1px solid rgba(94,231,255,.12);
+  color:#9dc2d3;
+  padding:8px 11px;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:11px;
+}
+
+.quick-questions button:hover{
+  border-color:rgba(94,231,255,.35);
+  color:var(--cyan);
+}
+
+/* HERO VISUAL */
+
+.hero-visual{
+  min-height:430px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.orbit{
+  position:absolute;
+  border:1px solid rgba(94,231,255,.12);
+  border-radius:50%;
+}
+
+.orbit.one{
+  width:380px;
+  height:380px;
+  animation:spin 20s linear infinite;
+}
+
+.orbit.two{
+  width:280px;
+  height:280px;
+  border-color:rgba(82,242,165,.13);
+  animation:spinReverse 14s linear infinite;
+}
+
+.orbit.three{
+  width:180px;
+  height:180px;
+  border-color:rgba(94,231,255,.20);
+}
+
+.ai-core{
+  width:115px;
+  height:115px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 30%,#d9fbff,#5ee7ff 35%,#167cff 70%,#071426);
+  box-shadow:
+    0 0 35px rgba(94,231,255,.45),
+    0 0 90px rgba(31,184,255,.22);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#04121e;
+  font-weight:900;
+  font-size:16px;
+  text-align:center;
+  z-index:2;
+}
+
+.node{
+  position:absolute;
+  padding:12px 16px;
+  border-radius:12px;
+  background:rgba(7,20,35,.85);
+  border:1px solid var(--line);
+  font-size:11px;
+  color:#9fc4d5;
+  backdrop-filter:blur(10px);
+}
+
+.node strong{
+  display:block;
+  color:white;
+  font-size:17px;
+  margin-bottom:3px;
+}
+
+.node.n1{
+  top:55px;
+  left:10%;
+}
+
+.node.n2{
+  top:100px;
+  right:5%;
+}
+
+.node.n3{
+  bottom:90px;
+  left:8%;
+}
+
+.node.n4{
+  bottom:55px;
+  right:8%;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes spinReverse{
+  to{transform:rotate(-360deg)}
+}
+
+/* DASHBOARD */
+
+.dashboard{
+  padding-top:55px;
+}
+
+.dashboard-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:25px;
+  margin-bottom:30px;
+}
+
+.dashboard-header h2{
+  font-size:42px;
+  margin-top:10px;
+  letter-spacing:-1.5px;
+}
+
+.dashboard-header p{
+  max-width:600px;
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.live-status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:var(--green);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+  white-space:nowrap;
+}
+
+.live-status span{
+  width:7px;
+  height:7px;
+  background:var(--green);
+  border-radius:50%;
+  box-shadow:0 0 10px var(--green);
+}
+
+/* STAT CARDS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.stat{
+  padding:25px;
+  border-radius:18px;
+  position:relative;
+  overflow:hidden;
+}
+
+.stat::after{
+  content:"";
+  position:absolute;
+  width:80px;
+  height:80px;
+  right:-30px;
+  top:-30px;
+  border-radius:50%;
+  background:rgba(94,231,255,.07);
+  filter:blur(5px);
+}
+
+.stat strong{
+  display:block;
+  font-size:31px;
+  color:white;
+  margin-bottom:8px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:.7px;
+}
+
+/* DASHBOARD GRIDS */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:18px;
+}
+
+.dashboard-card{
+  border-radius:18px;
+  padding:28px;
+}
+
+.dashboard-card.full{
+  margin-top:18px;
+}
+
+.card-title{
+  font-size:21px;
+  font-weight:700;
+  margin:9px 0 25px;
+}
+
+.card-subtitle{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* METRIC ROWS */
+
+.metric-row{
+  margin-bottom:21px;
+}
+
+.metric-row:last-child{
+  margin-bottom:0;
+}
+
+.metric-row-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:8px;
+}
+
+.metric-row-top span{
+  color:#c4dce7;
+  font-size:13px;
+}
+
+.metric-row-top strong{
+  color:white;
+  font-size:13px;
+}
+
+.metric-bar{
+  height:7px;
+  background:rgba(255,255,255,.05);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.metric-bar span{
+  display:block;
+  height:100%;
+  min-width:5px;
+  border-radius:20px;
+  background:linear-gradient(
+    90deg,
+    var(--cyan2),
+    var(--cyan)
+  );
+  box-shadow:0 0 14px rgba(94,231,255,.25);
+  transition:width .8s ease;
+}
+
+/* AI ASSISTANT */
+
+.ai-section{
+  padding-top:75px;
+  padding-bottom:100px;
+}
+
+.ai-card{
+  border-radius:22px;
+  padding:38px;
+  position:relative;
+  overflow:hidden;
+}
+
+.ai-card::before{
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  right:-120px;
+  top:-160px;
+  border-radius:50%;
+  background:rgba(94,231,255,.06);
+  filter:blur(30px);
+}
+
+.ai-card h2{
+  font-size:38px;
+  margin:10px 0;
+}
+
+.ai-card p{
+  color:var(--muted);
+  line-height:1.7;
+  max-width:700px;
+}
+
+.ai-examples{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:22px;
+}
+
+.ai-example{
+  border:1px solid rgba(94,231,255,.12);
+  background:rgba(94,231,255,.035);
+  color:#a9c6d3;
+  border-radius:20px;
+  padding:9px 13px;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.ai-example:hover{
+  color:var(--cyan);
+  border-color:rgba(94,231,255,.35);
+}
+
+.ai-answer{
+  margin-top:25px;
+  min-height:70px;
+  padding:20px;
+  border-radius:14px;
+  background:rgba(2,10,19,.65);
+  border:1px solid rgba(94,231,255,.10);
+  color:#c9e3ed;
+  line-height:1.7;
+  font-size:14px;
+}
+
+.ai-answer .label{
+  color:var(--cyan);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2px;
+  margin-bottom:8px;
+}
+
+/* FOOTER */
+
+footer{
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+  padding:25px 0 35px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  color:#638092;
+  font-size:11px;
+}
+
+/* ANIMATION */
+
+.reveal{
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+
+/* TOP SALES + AI WORKSPACE */
+
+.top-workspace{
+  width:min(1400px,94%);
+  margin:0 auto;
+  padding-top:105px;
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(360px,.65fr);
+  gap:22px;
+  align-items:start;
+}
+
+.top-workspace .dashboard,
+.top-workspace .ai-section{
+  width:100%;
+  margin:0;
+}
+
+.top-workspace .dashboard{
+  padding:45px 0 70px;
+}
+
+.top-workspace .ai-section{
+  padding:45px 0 70px;
+  position:sticky;
+  top:76px;
+}
+
+.top-workspace .dashboard-header h2{
+  font-size:36px;
+}
+
+.top-workspace .ai-card{
+  min-height:560px;
+}
+
+.top-workspace .ai-card h2{
+  font-size:32px;
+}
+
+.top-workspace .stats{
+  grid-template-columns:repeat(2,1fr);
+}
+
+@media(max-width:1100px){
+  .top-workspace{
+    grid-template-columns:1fr;
+    width:min(1200px,92%);
+  }
+
+  .top-workspace .ai-section{
+    position:static;
+  }
+
+  .top-workspace .stats{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+  nav{
+    gap:15px;
+  }
+
+  .top-workspace .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:650px){
+
+  header{
+    padding:0 5%;
+  }
+
+  nav a{
+    font-size:11px;
+  }
+
+  .logo{
+    font-size:11px;
+  }
+
+  .dashboard-header h2{
+    font-size:32px;
+  }
+
+  .dashboard-header{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .top-workspace .stats{
+    grid-template-columns:1fr;
+  }
+
+  .dashboard-card,
+  .ai-card{
+    padding:23px;
+  }
+
+  .ask-box{
+    flex-wrap:wrap;
+  }
+
+  .ask-box button{
+    width:100%;
+  }
+
+  .node{
+    transform:scale(.85);
+  }
+
+  footer{
+    flex-direction:column;
+  }
+
+}
+
+/* LOADING */
+
+.loading{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.error{
+  color:var(--danger);
+  font-size:12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="networkCanvas"></canvas>
+
+<div class="ambient one"></div>
+<div class="ambient two"></div>
+<div class="scanline"></div>
+
+
+<!-- HEADER -->
+
+<header>
+
+  <div class="logo">
+
+    <div class="logo-mark">
+      NE
+    </div>
+
+    <span>NEUROEQUILIBRIUM</span>
+
+  </div>
+
+  <nav>
+
+    <a href="#dashboard">Dashboard</a>
+
+    <a href="#ai-assistant">AI Chatbot</a>
+
+  </nav>
+
+</header>
+
+
+<main>
+
+<!-- SALES DASHBOARD + AI CHATBOT WORKSPACE -->
+<div class="top-workspace">
+
+<!-- SALES DASHBOARD -->
+
+<section id="dashboard" class="dashboard">
+
+  <div class="dashboard-header reveal">
+
+    <div>
+
+      <div class="eyebrow">
+        SALES COMMAND CENTER
+      </div>
+
+      <h2>
+        Sales Intelligence Dashboard.
+      </h2>
+
+      <p>
+        Monitor verified NeuroEquilibrium business performance
+        across clinics, visits, revenue and services.
+      </p>
+
+    </div>
+
+
+    <div class="live-status">
+
+      <span></span>
+
+      LIVE DATA
+
+    </div>
+
+  </div>
+
+
+  <!-- STAT CARDS -->
+
+  <div class="stats">
+
+    <div class="stat glass reveal">
+
+      <strong id="clinicCount">
+        --
+      </strong>
+
+      <span>
+        Integrated Clinics
+      </span>
+
+    </div>
+
+
+    <div class="stat glass reveal">
+
+      <strong id="totalVisits">
+        --
+      </strong>
+
+      <span>
+        Total Visits · May 2026
+      </span>
+
+    </div>
+
+
+    <div class="stat glass reveal">
+
+      <strong id="totalRevenue">
+        --
+      </strong>
+
+      <span>
+        Total Revenue · May 2026
+      </span>
+
+    </div>
+
+
+    <div class="stat glass reveal">
+
+      <strong>
+        AI
+      </strong>
+
+      <span>
+        Sales Intelligence
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- CLINIC DATA -->
+
+  <div class="dashboard-grid">
+
+
+    <!-- VISITS -->
+
+    <div class="dashboard-card glass reveal">
+
+      <div class="eyebrow">
+        CLINIC ACTIVITY
+      </div>
+
+      <div class="card-title">
+        Visits by Clinic
+      </div>
+
+      <div class="card-subtitle">
+        Patient visits recorded during May 2026
+      </div>
+
+      <div
+        id="clinicVisits"
+        style="margin-top:25px"
+      >
+
+        <div class="loading">
+          Loading clinic visits...
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- REVENUE -->
+
+    <div class="dashboard-card glass reveal">
+
+      <div class="eyebrow">
+        CLINIC REVENUE
+      </div>
+
+      <div class="card-title">
+        Revenue by Clinic
+      </div>
+
+      <div class="card-subtitle">
+        Net Neuro revenue during May 2026
+      </div>
+
+      <div
+        id="clinicRevenue"
+        style="margin-top:25px"
+      >
+
+        <div class="loading">
+          Loading clinic revenue...
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SERVICE REVENUE -->
+
+  <div class="dashboard-card glass full reveal">
+
+    <div class="eyebrow">
+      SERVICE PERFORMANCE
+    </div>
+
+    <div class="card-title">
+      Revenue by Service
+    </div>
+
+    <div class="card-subtitle">
+      Net Neuro revenue grouped by service/test
+      during May 2026
+    </div>
+
+    <div
+      id="serviceRevenue"
+      style="margin-top:25px"
+    >
+
+      <div class="loading">
+        Loading service revenue...
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- AI ASSISTANT -->
+
+<section id="ai-assistant" class="ai-section">
+
+  <div class="ai-card glass reveal">
+
+    <div class="eyebrow">
+      SALES AI ASSISTANT
+    </div>
+
+    <h2>
+      Ask the intelligence.
+    </h2>
+
+    <p>
+      Ask natural-language questions about clinics, visits,
+      revenue and services. The AI selects the correct
+      verified business metric and returns the result.
+    </p>
+
+
+    <div class="ask-box">
+
+      <div class="ask-icon">
+        ⌕
+      </div>
+
+      <input
+        id="chatQuestion"
+        type="text"
+        placeholder="Ask your sales question..."
+        onkeydown="if(event.key==='Enter') askAI()"
+      >
+
+      <button onclick="askAI()">
+        Ask AI
+      </button>
+
+    </div>
+
+
+    <div class="ai-examples">
+
+      <button
+        class="ai-example"
+        onclick="useExample('How many clinics are integrated?')"
+      >
+        How many clinics are integrated?
+      </button>
+
+
+      <button
+        class="ai-example"
+        onclick="useExample('How many visits did each clinic have in May 2026?')"
+      >
+        Visits by clinic
+      </button>
+
+
+      <button
+        class="ai-example"
+        onclick="useExample('What was the revenue of each clinic in May 2026?')"
+      >
+        Revenue by clinic
+      </button>
+
+
+      <button
+        class="ai-example"
+        onclick="useExample('What was the revenue by service in May 2026?')"
+      >
+        Revenue by service
+      </button>
+
+    </div>
+
+
+    <div
+      id="aiAnswer"
+      class="ai-answer"
+    >
+
+      <div class="label">
+        AI RESPONSE
+      </div>
+
+      Ask a question to get started.
+
+    </div>
+
+  </div>
+
+</section>
+
+</div>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <span>
+    NEUROEQUILIBRIUM · SALES INTELLIGENCE PORTAL
+  </span>
+
+  <span>
+    Verified business metrics · AI assisted
+  </span>
+
+</footer>
+
+
+<script>
+
+/* NETWORK BACKGROUND */
+
+const canvas =
+  document.getElementById("networkCanvas");
+
+const ctx =
+  canvas.getContext("2d");
+
+let particles = [];
+
+
+function resizeCanvas(){
+
+  canvas.width =
+    window.innerWidth;
+
+  canvas.height =
+    window.innerHeight;
+
+}
+
+resizeCanvas();
+
+window.addEventListener(
+  "resize",
+  resizeCanvas
+);
+
+
+function createParticles(){
+
+  particles = [];
+
+  const count =
+    Math.min(
+      70,
+      Math.floor(window.innerWidth / 18)
+    );
+
+
+  for(let i=0;i<count;i++){
+
+    particles.push({
+
+      x:
+        Math.random() *
+        canvas.width,
+
+      y:
+        Math.random() *
+        canvas.height,
+
+      vx:
+        (Math.random()-.5)*.25,
+
+      vy:
+        (Math.random()-.5)*.25,
+
+      r:
+        Math.random()*1.5+.4
+
+    });
+
+  }
+
+}
+
+createParticles();
+
+
+function animateNetwork(){
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+
+  for(const p of particles){
+
+    p.x += p.vx;
+
+    p.y += p.vy;
+
+
+    if(
+      p.x < 0 ||
+      p.x > canvas.width
+    ){
+
+      p.vx *= -1;
+
+    }
+
+
+    if(
+      p.y < 0 ||
+      p.y > canvas.height
+    ){
+
+      p.vy *= -1;
+
+    }
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+      p.x,
+      p.y,
+      p.r,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle =
+      "rgba(94,231,255,.5)";
+
+    ctx.fill();
+
+  }
+
+
+  for(
+    let i=0;
+    i<particles.length;
+    i++
+  ){
+
+    for(
+      let j=i+1;
+      j<particles.length;
+      j++
+    ){
+
+      const a =
+        particles[i];
+
+      const b =
+        particles[j];
+
+
+      const dx =
+        a.x-b.x;
+
+      const dy =
+        a.y-b.y;
+
+
+      const distance =
+        Math.sqrt(
+          dx*dx+dy*dy
+        );
+
+
+      if(distance < 130){
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+          a.x,
+          a.y
+        );
+
+        ctx.lineTo(
+          b.x,
+          b.y
+        );
+
+        ctx.strokeStyle =
+          `rgba(
+            94,
+            231,
+            255,
+            ${.07*(1-distance/130)}
+          )`;
+
+        ctx.stroke();
+
+      }
+
+    }
+
+  }
+
+
+  requestAnimationFrame(
+    animateNetwork
+  );
+
+}
+
+animateNetwork();
+
+
+/* REVEAL ANIMATION */
+
+const observer =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if(
+          entry.isIntersecting
+        ){
+
+          entry.target
+            .classList
+            .add("show");
+
+        }
+
+      });
+
+    },
+    {
+      threshold:.08
+    }
+  );
+
+
+document
+  .querySelectorAll(".reveal")
+  .forEach(
+    el => observer.observe(el)
+  );
+
+
+/* FORMAT INR */
+
+function formatINR(value){
+
+  return "₹" +
+    Number(value || 0)
+      .toLocaleString("en-IN");
+
+}
+
+
+/* CLEAN API DATA */
+
+function cleanEntries(data){
+
+  return Object.entries(data)
+    .filter(
+      ([key]) =>
+        ![
+          "metric",
+          "start",
+          "end"
+        ].includes(key)
+    );
+
+}
+
+
+/* RENDER DASHBOARD ROWS */
+
+function renderMetricRows(
+  containerId,
+  data,
+  formatter
+){
+
+  const container =
+    document.getElementById(
+      containerId
+    );
+
+
+  const entries =
+    cleanEntries(data);
+
+
+  if(!entries.length){
+
+    container.innerHTML =
+      '<div class="loading">No data available.</div>';
+
+    return;
+
+  }
+
+
+  const values =
+    entries.map(
+      ([,value]) =>
+        Number(value) || 0
+    );
+
+
+  const max =
+    Math.max(...values,1);
+
+
+  container.innerHTML =
+    entries.map(
+      ([name,value]) => {
+
+        const numeric =
+          Number(value) || 0;
+
+
+        const percentage =
+          Math.max(
+            5,
+            (numeric/max)*100
+          );
+
+
+        return `
+
+          <div class="metric-row">
+
+            <div class="metric-row-top">
+
+              <span>
+                ${name}
+              </span>
+
+              <strong>
+                ${formatter(value)}
+              </strong>
+
+            </div>
+
+
+            <div class="metric-bar">
+
+              <span
+                style="width:${percentage}%"
+              ></span>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* LOAD SALES DASHBOARD */
+
+async function loadSalesDashboard(){
+
+  try{
+
+    const [
+
+      clinicCount,
+      visits,
+      clinicRevenue,
+      serviceRevenue
+
+    ] = await Promise.all([
+
+      fetch(
+        "/metrics/clinic-count"
+      )
+      .then(
+        r => r.json()
+      ),
+
+
+      fetch(
+        "/metrics/visits-by-clinic" +
+        "?start=2026-05-01&end=2026-05-31"
+      )
+      .then(
+        r => r.json()
+      ),
+
+
+      fetch(
+        "/metrics/revenue-by-clinic" +
+        "?start=2026-05-01&end=2026-05-31"
+      )
+      .then(
+        r => r.json()
+      ),
+
+
+      fetch(
+        "/metrics/revenue-by-service" +
+        "?start=2026-05-01&end=2026-05-31"
+      )
+      .then(
+        r => r.json()
+      )
+
+    ]);
+
+
+    /* CLINIC COUNT */
+
+    document
+      .getElementById(
+        "clinicCount"
+      )
+      .textContent =
+        clinicCount.value ?? "--";
+
+
+    /* TOTAL VISITS */
+
+    const visitEntries =
+      cleanEntries(visits);
+
+
+    const totalVisits =
+      visitEntries.reduce(
+        (sum,[,value]) =>
+          sum + (Number(value)||0),
+        0
+      );
+
+
+    document
+      .getElementById(
+        "totalVisits"
+      )
+      .textContent =
+        totalVisits
+          .toLocaleString("en-IN");
+
+
+    /* TOTAL REVENUE */
+
+    const revenueEntries =
+      cleanEntries(
+        clinicRevenue
+      );
+
+
+    const totalRevenue =
+      revenueEntries.reduce(
+        (sum,[,value]) =>
+          sum + (Number(value)||0),
+        0
+      );
+
+
+    document
+      .getElementById(
+        "totalRevenue"
+      )
+      .textContent =
+        formatINR(
+          totalRevenue
+        );
+
+
+    /* CLINIC VISITS */
+
+    renderMetricRows(
+      "clinicVisits",
+      visits,
+      value =>
+        Number(value)
+          .toLocaleString("en-IN")
+    );
+
+
+    /* CLINIC REVENUE */
+
+    renderMetricRows(
+      "clinicRevenue",
+      clinicRevenue,
+      formatINR
+    );
+
+
+    /* SERVICE REVENUE */
+
+    renderMetricRows(
+      "serviceRevenue",
+      serviceRevenue,
+      formatINR
+    );
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Dashboard error:",
+      error
+    );
+
+
+    document
+      .getElementById(
+        "clinicVisits"
+      )
+      .innerHTML =
+        '<div class="error">Unable to load clinic data.</div>';
+
+
+    document
+      .getElementById(
+        "clinicRevenue"
+      )
+      .innerHTML =
+        '<div class="error">Unable to load revenue data.</div>';
+
+
+    document
+      .getElementById(
+        "serviceRevenue"
+      )
+      .innerHTML =
+        '<div class="error">Unable to load service data.</div>';
+
+  }
+
+}
+
+
+/* AI API */
+
+async function postAsk(question){
+
+  const response =
+    await fetch(
+      "/ask",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
+
+        body:
+          JSON.stringify({
+            question:question
+          })
+
+      }
+    );
+
+
+  if(!response.ok){
+
+    const text =
+      await response
+        .text()
+        .catch(
+          () => ""
+        );
+
+
+    throw new Error(
+      "HTTP " +
+      response.status +
+      (
+        text
+          ? ": " + text
+          : ""
+      )
+    );
+
+  }
+
+
+  return response.json();
+
+}
+
+
+/* FORMAT AI RESPONSE */
+
+function formatAIResponse(data){
+
+  if(!data){
+
+    return "No answer returned.";
+
+  }
+
+
+  if(data.answer){
+
+    return data.answer;
+
+  }
+
+
+  if(
+    data.metric === "clinic_count" &&
+    data.value !== undefined
+  ){
+
+    return `
+      <strong>
+        ${data.value}
+      </strong>
+      integrated clinics.
+    `;
+
+  }
+
+
+  const entries =
+    cleanEntries(data);
+
+
+  if(entries.length){
+
+    return entries
+      .map(
+        ([key,value]) => {
+
+          const formatted =
+            typeof value === "number"
+              ? value.toLocaleString(
+                  "en-IN"
+                )
+              : value;
+
+
+          return `
+
+            <div style="
+              display:flex;
+              justify-content:space-between;
+              gap:20px;
+              padding:8px 0;
+              border-bottom:1px solid rgba(255,255,255,.05);
+            ">
+
+              <span>
+                ${key}
+              </span>
+
+              <strong>
+                ${formatted}
+              </strong>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+  }
+
+
+  return JSON.stringify(data);
+
+}
+
+/* EXAMPLE QUESTION */
+
+function useExample(question){
+
+  document
+    .getElementById(
+      "chatQuestion"
+    )
+    .value =
+      question;
+
+
+  document
+    .getElementById(
+      "chatQuestion"
+    )
+    .focus();
+
+}
+
+
+/* ASK AI */
+
+async function askAI(){
+
+  const input =
+    document.getElementById(
+      "chatQuestion"
+    );
+
+
+  const answerBox =
+    document.getElementById(
+      "aiAnswer"
+    );
+
+
+  const question =
+    input.value.trim();
+
+
+  if(!question){
+
+    answerBox.innerHTML = `
+
+      <div class="label">
+        AI RESPONSE
+      </div>
+
+      Please enter a question.
+
+    `;
+
+    return;
+
+  }
+
+
+  answerBox.innerHTML = `
+
+    <div class="label">
+      AI RESPONSE
+    </div>
+
+    <span class="loading">
+      Analysing your sales question...
+    </span>
+
+  `;
+
+
+  try{
+
+    const data =
+      await postAsk(
+        question
+      );
+
+
+    answerBox.innerHTML = `
+
+      <div class="label">
+        AI RESPONSE
+      </div>
+
+      ${formatAIResponse(data)}
+
+    `;
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+
+    answerBox.innerHTML = `
+
+      <div class="label">
+        AI RESPONSE
+      </div>
+
+      <span class="error">
+        Unable to connect to the AI service.
+        Please make sure Spring Boot and Ollama
+        are running.
+      </span>
+
+    `;
+
+  }
+
+}
+
+
+/* START DASHBOARD */
+
+loadSalesDashboard();
+
+</script>
+<script src="/query-timer.js"></script>
+</body>
+</html>
