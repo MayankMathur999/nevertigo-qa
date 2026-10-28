@@ -365,6 +365,9 @@ private java.util.List<String> splitQuestions(String text) {
                         && !body.get("end").isBlank()
                         ? parseDate(body.get("end"), DEFAULT_END)
                         : dates.end();
+                        if (end.isBefore(start)) {
+                        return invalidDateRange();
+}
 
             } else {
                 JsonNode prediction = null;
@@ -729,8 +732,9 @@ private java.util.List<String> splitQuestions(String text) {
             );
         }
 
+        // Supports "1 May to 15 May 2026" and "1 May 2026 to 15 May 2026".
         Pattern fullDateRangePattern = Pattern.compile(
-                "\\b(?:from\\s+)?(\\d{1,2})\\s+([a-z]+)\\s+(\\d{4})\\s*" +
+                "\\b(?:from\\s+)?(\\d{1,2})\\s+([a-z]+)(?:\\s+(\\d{4}))?\\s*" +
                 "(?:to|through|until|[-–])\\s*(\\d{1,2})\\s+([a-z]+)\\s+(\\d{4})\\b"
         );
         Matcher fullDateRangeMatcher = fullDateRangePattern.matcher(q);
@@ -741,18 +745,20 @@ private java.util.List<String> splitQuestions(String text) {
 
             if (startMonth != null && endMonth != null) {
                 try {
+                    int startYear = Integer.parseInt(
+                            fullDateRangeMatcher.group(3) != null
+                                    ? fullDateRangeMatcher.group(3)
+                                    : fullDateRangeMatcher.group(6));
+                    int endYear = Integer.parseInt(fullDateRangeMatcher.group(6));
+
                     LocalDate start = LocalDate.of(
-                            Integer.parseInt(fullDateRangeMatcher.group(3)),
-                            startMonth,
+                            startYear, startMonth,
                             Integer.parseInt(fullDateRangeMatcher.group(1))
                     );
-
                     LocalDate end = LocalDate.of(
-                            Integer.parseInt(fullDateRangeMatcher.group(6)),
-                            endMonth,
+                            endYear, endMonth,
                             Integer.parseInt(fullDateRangeMatcher.group(4))
                     );
-
                     return new DateRange(start, end);
                 } catch (Exception ignored) {
                     // Continue to the remaining date rules.
