@@ -1,0 +1,55 @@
+question,metric
+"How many first-time visitors did our clinics receive during May 2026?",new_patients
+"Tell me the count of patients making their initial clinic visit",new_patients
+"How many different individuals received care during May?",patients_with_visit
+"Count people who visited at least once during the reporting period",patients_with_visit
+"Break down the earnings according to CGHS and cash categories",revenue_by_scheme
+"Which payment category contributed more revenue?",revenue_by_scheme
+"How many patient encounters were recorded during the first half of May?",visits
+"Give me the total number of completed clinic visits",visits
+"How many returning patients attended another consultation?",followup_patients
+"Count patients who came back for a review appointment",followup_patients
+"How many individuals were found to have positional vertigo of the BPPV type?",bppv_patients
+"Give me the count of patients with confirmed BPPV",bppv_patients
+"What proportion of examined patients were BPPV positive?",bppv_percentage
+"Express BPPV cases as a percentage of patients seen",bppv_percentage
+"How much net income came specifically from neurological testing?",net_neuro_revenue
+"Give me the net earnings attributable to Neuro tests",net_neuro_revenue
+"Which employees contributed the greatest amount to revenue?",revenue_by_staff
+"List revenue contributions ranked by clinic personnel",revenue_by_staff
+"What amount was invoiced for analysis work?",analysis_amount
+"Give me the billing total for analysis activities",analysis_amount
+"How many completed DVA reports reached the clinic?",dva_report_received
+"Count the DVA reports that were successfully received",dva_report_received
+"How many medication-related line items were entered?",medicine_line
+"Give me the number of recorded medicine entries",medicine_line
+"How many clinic branches belong to our integrated network?",clinic_count
+"Give me the total number of participating clinic locations",clinic_count
+"How many examinations showed reduced SPV with no torsional movement?",low_spv_no_torsion_visits
+"Count the visits where SPV was low and torsion was absent",low_spv_no_torsion_visits
+"Which DVA software releases are installed at the Mumbai location?",mumbai_dva_versions
+"Tell me the installed DVA release numbers for Mumbai machines",mumbai_dva_versions
+"Show me the figures for that location",CLARIFY
+"How much did it contribute during that time?",CLARIFY
+"What is the current temperature in Jaipur?",NONE
+"Can you recommend a movie for tonight?",NONE
+"Looking at May's records, how many people were completely new to our clinic rather than returning for another appointment?",new_patients
+"If a patient visited three times in May, count them only once. How many unique patients did we treat?",patients_with_visit
+"Can you separate the money collected under CGHS from the amount paid directly by cash patients?",revenue_by_scheme
+"Even if the same patient came multiple times, what was the overall number of appointments completed in May?",visits
+"Out of everyone who attended, how many were coming back after an earlier consultation?",followup_patients
+"Among all the people examined, how many had a diagnosis of benign paroxysmal positional vertigo?",bppv_patients
+"Instead of giving me the number of BPPV cases, tell me what percentage of patients they represent.",bppv_percentage
+"After considering only Neuro diagnostic tests, what was the net revenue generated during May?",net_neuro_revenue
+"Which staff members were responsible for generating the most revenue, and how much did each contribute?",revenue_by_staff
+"How much did we bill for analysis services across vertigo and export clinics combined?",analysis_amount
+"Out of the DVA tests performed, how many reports were actually received by the clinic?",dva_report_received
+"How many separate medicine entries appear in our May billing records?",medicine_line
+"Across the entire NeuroEquilibrium network, how many clinics are currently integrated?",clinic_count
+"During May, how many visits showed low slow-phase velocity without any torsional component?",low_spv_no_torsion_visits
+"Are the DVA machines in Mumbai running identical software versions, or are different versions installed?",mumbai_dva_versions
+"Can you tell me how much revenue that particular person generated?",CLARIFY
+"Compare those results with the previous period, but only for that clinic.",CLARIFY
+"Which treatment should I prescribe for a patient experiencing severe dizziness?",NONE
+"Can you predict which patients will develop vertigo next year?",NONE
+"How many new patients came in May, and how much revenue came from CGHS patients?",NONE

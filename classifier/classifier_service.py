@@ -25,15 +25,27 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # --------------------------------------------------
-# 2. Load Experiment A classifier and embedding model
+# 2. Load Experiment A V2 classifier and embedding model
 # --------------------------------------------------
 
-MODEL_PATH = Path("classifier/experiment_A_classifier.pkl")
+MODEL_PATH = Path("classifier/experiment_A_classifier_v2_best.pkl")
 
 try:
     classifier = joblib.load(MODEL_PATH)
+
+    print("LOADED MODEL:", MODEL_PATH.resolve(), flush=True)
+    print(
+        "MODEL COEFFICIENT SUM:",
+        round(float(abs(classifier.coef_).sum()), 4),
+        flush=True
+    )
+
     embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
-    logger.info("Experiment A classifier and embedding model loaded successfully.")
+
+    logger.info(
+        "Experiment A classifier and embedding model loaded successfully."
+    )
+
 except Exception:
     logger.exception("Failed to load classifier or embedding model.")
     raise
@@ -65,8 +77,21 @@ def predict():
     prediction_started = time.perf_counter()
 
     try:
-        # Convert the question into an embedding
+        # Convert question into an embedding
         vector = embedding_model.encode([question])
+
+        # Diagnostic information
+        print(
+            "PREDICTION MODEL:",
+            MODEL_PATH.name,
+            flush=True
+        )
+
+        print(
+            "PREDICTION COEFFICIENT SUM:",
+            round(float(abs(classifier.coef_).sum()), 4),
+            flush=True
+        )
 
         # Predict the most likely metric
         probabilities = classifier.predict_proba(vector)[0]
@@ -75,7 +100,7 @@ def predict():
         metric = str(classifier.classes_[best_index])
         confidence = float(probabilities[best_index])
 
-        # Select the outcome using the existing thresholds
+        # Select outcome using confidence thresholds
         if confidence >= HIGH_CONFIDENCE:
             outcome = "ANSWER"
             message = "High confidence"
@@ -92,10 +117,10 @@ def predict():
         # Measure classifier processing time
         prediction_time = time.perf_counter() - prediction_started
 
-        # Measure total time spent inside this API request
+        # Measure total API request time
         total_time = time.perf_counter() - request_started
 
-        # Record the question and performance details
+        # Log question and performance
         logger.info(
             "question=%r metric=%s confidence=%.4f outcome=%s "
             "prediction_time_seconds=%.4f total_time_seconds=%.4f",
@@ -107,7 +132,7 @@ def predict():
             total_time
         )
 
-        # Keep the response fields compatible with Java
+        # Response compatible with Spring Boot
         return jsonify({
             "metric": metric,
             "confidence": round(confidence, 4),
@@ -116,7 +141,10 @@ def predict():
         })
 
     except Exception:
-        logger.exception("Prediction failed for question=%r", question)
+        logger.exception(
+            "Prediction failed for question=%r",
+            question
+        )
 
         return jsonify({
             "error": "Classifier prediction failed"
@@ -124,7 +152,7 @@ def predict():
 
 
 # --------------------------------------------------
-# 5. Start the Flask server
+# 5. Start Flask server
 # --------------------------------------------------
 
 if __name__ == "__main__":

@@ -1,0 +1,35 @@
+question,metric
+"How many people started their patient journey with our clinics during June?",new_patients
+"Give me the number of individuals who had no previous appointment history before this month",new_patients
+"During the reporting month, how many separate people received at least one consultation?",patients_with_visit
+"If someone attended on five different days, they should still count as one person. What is our patient total?",patients_with_visit
+"How many individual consultations took place, including repeat appointments?",visits
+"What is the overall appointment volume if every patient encounter is counted separately?",visits
+"Of those attending this month, how many had already been treated at our clinics previously?",followup_patients
+"Count the patients returning for subsequent consultations rather than their first consultation",followup_patients
+"How many people tested positive for the condition commonly abbreviated as BPPV?",bppv_patients
+"Among the patients assessed, what was the total count diagnosed with positional vertigo?",bppv_patients
+"What fraction of the patient population had BPPV, expressed as a percentage?",bppv_percentage
+"Calculate the percentage share of BPPV cases among patients who visited",bppv_percentage
+"What was our net collection specifically attributable to neurological investigations?",net_neuro_revenue
+"Exclude other service categories and report the net earnings from Neuro testing",net_neuro_revenue
+"Split our collected revenue according to the patient's payment scheme",revenue_by_scheme
+"Provide separate revenue totals for government scheme beneficiaries and self-paying patients",revenue_by_scheme
+"Which members of the clinical team contributed how much toward our collections?",revenue_by_staff
+"Show the income attributable to each employee involved in patient services",revenue_by_staff
+"How much money was billed for analysis work across the different clinic categories?",analysis_amount
+"Provide the total charges raised for analysis services during the reporting month",analysis_amount
+"How many DVA test reports have reached us successfully?",dva_report_received
+"Give me the number of DVA reports marked as received",dva_report_received
+"How many medicine-related records appear in the billing entries?",medicine_line
+"Count the medication line items recorded during the selected month",medicine_line
+"How many locations are currently part of our integrated clinic setup?",clinic_count
+"Give me the number of clinic sites connected to the system",clinic_count
+"How many examinations recorded reduced SPV without a torsional response?",low_spv_no_torsion_visits
+"Count visits where slow-phase velocity was low and torsion was not observed",low_spv_no_torsion_visits
+"Are all Mumbai DVA systems using the same release, or do their installed versions differ?",mumbai_dva_versions
+"Identify the software versions deployed on the DVA equipment at our Mumbai clinics",mumbai_dva_versions
+"How much did that unspecified staff member earn for us?",CLARIFY
+"Show me the comparison for the location we were discussing",CLARIFY
+"Can you forecast the exact number of patients who will visit next year?",NONE
+"What medicine dosage should I give a patient with sudden vertigo?",NONE
