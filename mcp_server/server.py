@@ -5,14 +5,20 @@ from datetime import date
 import httpx
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP("NEVertigo MCP Server")
 SPRING_BOOT_URL = os.getenv(
     "SPRING_BOOT_URL",
-    "http://127.0.0.1:8081"
+    "https://nevertigo-mcp-backend.onrender.com"
+).rstrip("/")
+
+mcp = FastMCP(
+    "NEVertigo MCP Server",
+    host="0.0.0.0",
+    port=int(os.getenv("PORT", "8000"))
 )
 
+
 def fetch_metric(endpoint: str, start: str, end: str) -> dict:
-    """Fetch a verified metric from our Spring Boot backend."""
+    """Fetch a verified metric from the Spring Boot backend."""
 
     start_date = date.fromisoformat(start)
     end_date = date.fromisoformat(end)
@@ -20,7 +26,7 @@ def fetch_metric(endpoint: str, start: str, end: str) -> dict:
     if start_date > end_date:
         raise ValueError("Start date cannot be after end date.")
 
-    with httpx.Client(timeout=15.0) as client:
+    with httpx.Client(timeout=60.0) as client:
         response = client.get(
             f"{SPRING_BOOT_URL}/metrics/{endpoint}",
             params={"start": start, "end": end}
